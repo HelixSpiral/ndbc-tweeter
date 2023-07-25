@@ -25,20 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	/*
-		buoyPictureFile, err := os.Create("buoyPicture.jpg")
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer buoyPictureFile.Close()
 
-		pictureIOReader := bytes.NewReader(buoyPicture)
-
-		_, err = io.Copy(buoyPictureFile, pictureIOReader)
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/
 	buoyInfo, err := n.GetLatestDataFromBuoy(buoyID)
 	if err != nil {
 		log.Fatal(err)
@@ -62,9 +49,9 @@ func main() {
 	}
 
 	if buoyInfo.WindSpeed > 0 {
-		tweetMessage += fmt.Sprintf("sustained winds of %f", buoyInfo.WindSpeed)
+		tweetMessage += fmt.Sprintf("sustained winds of %f m/s", buoyInfo.WindSpeed)
 		if buoyInfo.GustSpeed > 0 {
-			tweetMessage += fmt.Sprintf(", and gusting up to %f!", buoyInfo.GustSpeed)
+			tweetMessage += fmt.Sprintf(", and gusting up to %f m/s!", buoyInfo.GustSpeed)
 		} else {
 			tweetMessage += "."
 		}
@@ -77,7 +64,7 @@ func main() {
 	tweetMessageRunes[0] = unicode.ToUpper(tweetMessageRunes[0])
 	tweetMessage = string(tweetMessageRunes)
 
-	err = sendMessage(tweetMessage, mediaResp.MediaKey)
+	err = sendMessage(tweetMessage, mediaResp.MediaIDString)
 	if err != nil {
 		log.Fatal(err)
 	}

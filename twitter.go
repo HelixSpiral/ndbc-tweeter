@@ -23,26 +23,26 @@ func uploadImage(image []byte) (twitterMediaResponse, error) {
 
 	httpClient := config.Client(oauth1.NoContext, token)
 
-	log.Println("Test1")
 	imageReader := bytes.NewReader(image)
 	imageBuf := &bytes.Buffer{}
 	form := multipart.NewWriter(imageBuf)
+
 	fw, err := form.CreateFormFile("media", "buoyPicture.jpg")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	_, err = io.Copy(fw, imageReader)
 	if err != nil {
 		log.Fatal(err)
 	}
 	form.Close()
+
 	resp, err := httpClient.Post("https://upload.twitter.com/1.1/media/upload.json?media_category=tweet_image", form.FormDataContentType(), bytes.NewReader(imageBuf.Bytes()))
 	if err != nil {
 		return twitterMediaResponse{}, fmt.Errorf("error in http POST: %w", err)
 	}
 	defer resp.Body.Close()
-
-	log.Println("test2")
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -73,7 +73,7 @@ func sendMessage(message, mediaID string) error {
 	log.Printf("Tweeting message: %s\r\n", message)
 
 	resp, err := httpClient.Post("https://api.twitter.com/2/tweets", "application/json",
-		bytes.NewBuffer([]byte(fmt.Sprintf(`{"text": "%s"}`, message))))
+		bytes.NewBuffer([]byte(fmt.Sprintf(`{"text": "%s", "media": {"media_ids": ["%s"]}}`, message, mediaID))))
 	if err != nil {
 		return err
 	}
