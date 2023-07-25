@@ -5,4 +5,6 @@ github.com/helixspiral/ndbc v0.0.0-20230724003245-218f2bd95180 h1:S6U5Szn4IVFaCI
 github.com/helixspiral/ndbc v0.0.0-20230724003245-218f2bd95180/go.mod h1:Tx7b+MULDxlvuKnxYDHT+jf9vjIiRY7ZFCWpMpiTFhY=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
+golang.org/x/exp v0.0.0-20230724220655-d98519c11495 h1:zKGKw2WlGb8oPoRGqQ2PT8g2YoCN1w/YbbQjHXCdUWE=
+golang.org/x/exp v0.0.0-20230724220655-d98519c11495/go.mod h1:FXUEEKJgO7OQYeo8N01OfiKP8RXMtf6e8aTskBGqWdc=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
