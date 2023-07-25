@@ -29,12 +29,12 @@ func uploadImage(image []byte) (twitterMediaResponse, error) {
 
 	fw, err := form.CreateFormFile("media", "buoyPicture.jpg")
 	if err != nil {
-		log.Fatal(err)
+		return twitterMediaResponse{}, fmt.Errorf("error creating file: %w", err)
 	}
 
 	_, err = io.Copy(fw, imageReader)
 	if err != nil {
-		log.Fatal(err)
+		return twitterMediaResponse{}, fmt.Errorf("error in io copy: %w", err)
 	}
 	form.Close()
 
@@ -75,12 +75,12 @@ func sendMessage(message, mediaID string) error {
 	resp, err := httpClient.Post("https://api.twitter.com/2/tweets", "application/json",
 		bytes.NewBuffer([]byte(fmt.Sprintf(`{"text": "%s", "media": {"media_ids": ["%s"]}}`, message, mediaID))))
 	if err != nil {
-		return err
+		return fmt.Errorf("error in http POST: %w", err)
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return err
+		return fmt.Errorf("error reading http body: %w", err)
 	}
 
 	log.Println("Tweet:", string(body))
