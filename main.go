@@ -49,13 +49,19 @@ func main() {
 	}
 
 	if buoyInfo.WindSpeed > 0 {
-		tweetMessage += fmt.Sprintf("sustained winds of %f m/s", buoyInfo.WindSpeed)
-		if buoyInfo.GustSpeed > 0 {
-			tweetMessage += fmt.Sprintf(", and gusting up to %f m/s!", buoyInfo.GustSpeed)
+		tweetMessage += fmt.Sprintf("sustained winds of %.1f m/s", buoyInfo.WindSpeed)
+		if buoyInfo.GustSpeed > 0 && buoyInfo.GustSpeed != buoyInfo.WindSpeed {
+			tweetMessage += fmt.Sprintf(", and gusting up to %.1f m/s!", buoyInfo.GustSpeed)
 		} else {
-			tweetMessage += "."
+			tweetMessage += "!"
 		}
 	}
+
+	if tweetMessage != "" {
+		tweetMessage += "\\r\\n\\r\\n"
+	}
+
+	tweetMessage += "#noaa #ndbc #buoy #Maine #coast #weather #ocean"
 
 	// I'm sure there's a better way to do this, but it's simple and it works.
 	// We use this to ensure the first letter is capital, there's a change it wont be if there's no
