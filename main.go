@@ -14,6 +14,8 @@ import (
 func main() {
 	// Some initial setup
 	buoyIDString := os.Getenv("BUOY_ID")
+	buoyLocation := os.Getenv("BUOY_LOCATION") // There's no clean and easy way to get this from the API, since these buoys don't move we'll just throw it in this way.
+
 	buoyID, err := strconv.Atoi(buoyIDString)
 	if err != nil {
 		log.Fatalf("Error converting BUOY_ID to int")
@@ -39,6 +41,10 @@ func main() {
 
 	// Send tweet
 	var tweetMessage string
+	if buoyLocation != "" {
+		tweetMessage += fmt.Sprintf("%s: ", buoyLocation)
+	}
+
 	if slices.Contains([]string{
 		"North", "Northeast",
 		"East", "Southeast",
