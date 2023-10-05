@@ -1,16 +1,17 @@
 package main
 
-type twitterMediaResponse struct {
-	MediaID       int              `json:"media_id"`
-	MediaIDString string           `json:"media_id_string"`
-	MediaKey      string           `json:"media_key"`
-	Size          int              `json:"size"`
-	ExpiresAfter  int              `json:"expires_after_secs"`
-	Image         twitterImageInfo `json:"image"`
-}
+type MqttMessage struct {
+	MastodonServer       string
+	MastodonClientID     string
+	MastodonClientSecret string
+	MastodonUser         string
+	MastodonPass         string
 
-type twitterImageInfo struct {
-	Type   string `json:"image_type"`
-	Width  int    `json:"w"`
-	Height int    `json:"h"`
+	TwitterConsumerKey    string
+	TwitterConsumerSecret string
+	TwitterAccessToken    string
+	TwitterAccessSecret   string
+
+	Message string
+	Image   []byte
 }
