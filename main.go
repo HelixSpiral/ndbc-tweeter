@@ -111,7 +111,7 @@ func main() {
 		TwitterAccessSecret:   accessSecret,
 
 		Message: message,
-		Image:   buoyPicture,
+		Images:  [][]byte{buoyPicture},
 	})
 	if err != nil {
 		log.Fatal(err)

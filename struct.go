@@ -13,5 +13,5 @@ type MqttMessage struct {
 	TwitterAccessSecret   string
 
 	Message string
-	Image   []byte
+	Images  [][]byte
 }
