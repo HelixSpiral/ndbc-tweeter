@@ -10,7 +10,7 @@ import (
 	"unicode"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/helixspiral/ndbc"
+	"github.com/helixspiral/noaa"
 	"golang.org/x/exp/slices"
 )
 
@@ -46,14 +46,14 @@ func main() {
 		log.Fatalf("Error converting BUOY_ID to int")
 	}
 
-	n := ndbc.NewAPI()
+	n := noaa.New()
 
-	buoyPicture, err := n.GetPictureFromBuoy(buoyID)
+	buoyPicture, err := n.NDBC.GetPictureFromBuoy(buoyID)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	buoyInfo, err := n.GetLatestDataFromBuoy(buoyID)
+	buoyInfo, err := n.NDBC.GetLatestDataFromBuoy(buoyID)
 	if err != nil {
 		log.Fatal(err)
 	}
