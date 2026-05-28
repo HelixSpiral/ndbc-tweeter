@@ -48,15 +48,17 @@ func main() {
 
 	n := noaa.New()
 
-	buoyPicture, err := n.NDBC.GetPictureFromBuoy(buoyID)
+	buoyPicture, err := n.NDBC.Station(buoyID).Camera.Latest()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	buoyInfo, err := n.NDBC.GetLatestDataFromBuoy(buoyID)
+	fullBuoyInfo, err := n.NDBC.Station(buoyID).RealTime.Standard()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	buoyInfo := fullBuoyInfo[0] // We only care about the absolute latest available
 
 	// Setup the MQTT message
 	var message string
